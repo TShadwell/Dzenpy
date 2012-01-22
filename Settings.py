@@ -1,0 +1,2 @@
+#Settings file
+debug = True
