@@ -15,12 +15,14 @@ dprint("Main started.")
 from Modules import mtime
 TextModules={}
 def go():
-	#Recieve outputs, compile, print
+	#Recieve outputs, compile, print.
 	for name,clas in TextModules.items():
-		print(clas.output)
+		print(Settings.format.substitute(dict([(name, mod.output) for name, mod in TextModules.items()])))
+
 TextModules={
 	mtime.name:mtime.display(go)
 }
+
 if Settings.assist:
 	print("Settings.format can use the following tags:")
 	for Name,Module in TextModules.items():

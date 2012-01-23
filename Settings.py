@@ -1,4 +1,4 @@
-
+from string import Template
 class Compile:
 	def __init__(Self):
 		dzen2={
@@ -23,8 +23,10 @@ class Compile:
 			#Align
 			"ta":"l"
 		}
+		format = "$time"
+		Self.format = Template(format)
 		Self.options=''.join(["-%s%s " %(prop,(" " + str(val) if not str(val) == "" else "")) for prop, val in dzen2.items()]).strip(" ")
 		del dzen2
 	debug = True
-	assist = True
-	format = ""
+	assist = False
+	
