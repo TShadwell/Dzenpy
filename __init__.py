@@ -1,7 +1,7 @@
 from Settings import Compile
-from sys import stdin
+from sys import stdout
 from threading import Timer
-from io import UnsupportedOperation
+import Text
 Settings = Compile()
 if Settings.debug:
 	from datetime import datetime
@@ -12,19 +12,16 @@ if Settings.debug:
 else:
 	dprint = lambda a: a
 dprint("Main started.")
-import Modules
-dprint("IMPORT ./Modules")
-import Text
+from Modules import mtime
+
 dprint("IMPORT ./Text")
-
-
-
 dprint("dzen2 started.")
 dprint("Entering main loop.")
-Run = True
-while Run:
-	try:
-		stdin.write("cool")
-	except UnsupportedOperation:
-		print(Text.NotPiping)
-		Run = False
+TextModules={}
+def go():
+	#Recieve outputs, compile, print
+	for name,clas in TextModules.items():
+		print(clas.output)
+TextModules={
+	"time":mtime.display(go)
+}
