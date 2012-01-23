@@ -13,15 +13,17 @@ else:
 	dprint = lambda a: a
 dprint("Main started.")
 from Modules import mtime
-
-dprint("IMPORT ./Text")
-dprint("dzen2 started.")
-dprint("Entering main loop.")
 TextModules={}
 def go():
 	#Recieve outputs, compile, print
 	for name,clas in TextModules.items():
 		print(clas.output)
 TextModules={
-	"time":mtime.display(go)
+	mtime.name:mtime.display(go)
 }
+if Settings.assist:
+	print("Settings.format can use the following tags:")
+	for Name,Module in TextModules.items():
+		print("$" + str(Name))
+		Module.Continue=False
+	exit()

@@ -25,4 +25,6 @@ class Compile:
 		}
 		Self.options=''.join(["-%s%s " %(prop,(" " + str(val) if not str(val) == "" else "")) for prop, val in dzen2.items()]).strip(" ")
 		del dzen2
-	debug = False
+	debug = True
+	assist = True
+	format = ""
