@@ -13,7 +13,7 @@ if Settings.debug:
 else:
 	dprint = lambda a: a
 dprint("Main started.")
-from Modules import mtime, count
+from Modules import mtime, FancyTime 
 TextModules={}
 dzen = subprocess.Popen(('dzen2 '+Settings.options).split(" "), shell=False, stdin=subprocess.PIPE)
 
@@ -25,7 +25,7 @@ def go():
 
 TextModules={
 	mtime.name:mtime.display(go),
-	count.name:count.display(go)
+	FancyTime.name:FancyTime.display(go,"right")
 }
 
 if Settings.assist:
