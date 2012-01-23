@@ -1,6 +1,7 @@
 from Settings import Compile
 from sys import stdout
 from threading import Timer
+import subprocess
 import Text
 Settings = Compile()
 if Settings.debug:
@@ -12,15 +13,19 @@ if Settings.debug:
 else:
 	dprint = lambda a: a
 dprint("Main started.")
-from Modules import mtime
+from Modules import mtime, count
 TextModules={}
+dzen = subprocess.Popen(('dzen2 '+Settings.options).split(" "), shell=False, stdin=subprocess.PIPE)
+
 def go():
 	#Recieve outputs, compile, print.
-	for name,clas in TextModules.items():
-		print(Settings.format.substitute(dict([(name, mod.output) for name, mod in TextModules.items()])))
+	#for name,clas in TextModules.items():
+	if not Settings.assist and len(TextModules) > 0:
+		dzen.stdin.write(bytes((Settings.format.substitute(dict([(name, mod.output) for name, mod in TextModules.items()]))) + "\n","UTF-8"))
 
 TextModules={
-	mtime.name:mtime.display(go)
+	mtime.name:mtime.display(go),
+	count.name:count.display(go)
 }
 
 if Settings.assist:
