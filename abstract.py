@@ -8,7 +8,7 @@ class Module:
 		Self.display.Timeout= Timeout
 		Self.display.updateproc = lambda Self, x: updateproc(x)
 	class display:
-		align = lambda a:a
+		align = lambda *a:a[1]
 		def __init__(Self, fire, align="default"):
 			Self.fire = fire
 			Self.t = Timer(0, Self.update)

@@ -2,7 +2,6 @@ from Settings import Compile
 from sys import stdout
 from threading import Timer
 import subprocess
-import Text
 Settings = Compile()
 if Settings.debug:
 	from datetime import datetime
@@ -13,7 +12,7 @@ if Settings.debug:
 else:
 	dprint = lambda a: a
 dprint("Main started.")
-from Modules import mtime, FancyTime 
+from Modules import mtime, FancyTime, Calendar 
 TextModules={}
 dzen = subprocess.Popen(('dzen2 '+Settings.options).split(" "), shell=False, stdin=subprocess.PIPE)
 
@@ -25,8 +24,9 @@ def go():
 
 TextModules={
 	mtime.name:mtime.display(go),
-	FancyTime.name:FancyTime.display(go,"right")
-}
+	FancyTime.name:FancyTime.display(go, "right"),
+	Calendar.name:Calendar.display(go)
+	}
 
 if Settings.assist:
 	print("Settings.format can use the following tags:")

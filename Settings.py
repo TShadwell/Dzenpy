@@ -11,7 +11,7 @@ class Compile:
 			#Events
 			"e":"\'\'",
 			#Height
-			"h":20,
+			"h":10,
 			#Width
 			"w":2880,
 			#Font
@@ -23,7 +23,7 @@ class Compile:
 			#Align
 			"ta":"l"
 		}
-		format = "$fancytime"
+		format = "$calendar"
 		Self.format = Template(format)
 		Self.options=''.join(["-%s%s " %(prop,(" " + str(val) if not str(val) == "" else "")) for prop, val in dzen2.items()]).strip(" ")
 		del dzen2
