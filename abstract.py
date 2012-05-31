@@ -11,6 +11,7 @@ class Module:
 		align = lambda *a:a[1]
 		def __init__(Self, fire, align="default"):
 			Self.fire = fire
+			Self.output=""
 			Self.t = Timer(0, Self.update)
 			Self.t.start()
 			if align=="default":
@@ -21,7 +22,6 @@ class Module:
 				Self.align=lambda a: "^p(_RIGHT)^p(-%s)"%((len(''.join([m for m in [x.split("^")[0] for x in a.split(")")] if not m=='']))+1) * 6) + a + "^p()"
 			else:
 				print("Invalid alignment \"%s\"."%(align))
-		output=""
 		Continue=True
 		Timeout = 0
 		def update(Self):
