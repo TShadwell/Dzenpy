@@ -12,20 +12,39 @@ if Settings.debug:
 else:
 	dprint = lambda a: a
 dprint("Main started.")
-from Modules import mtime, FancyTime, Calendar 
+from Modules import Calendar, i3, FancyTime 
 TextModules={}
-dzen = subprocess.Popen(('dzen2 '+Settings.options).split(" "), shell=False, stdin=subprocess.PIPE)
+bars=[]
+for screen in i3.getTree()["nodes"][1:]:
+	bars.append(
+			subprocess.Popen(
+				('dzen2 ' + Compile(screen["rect"]["x"], screen["rect"]["width"]).options).split(" "), 
+				shell=False, 
+				stdin=subprocess.PIPE
+			)
+	)
 
 def go():
 	#Recieve outputs, compile, print.
 	#for name,clas in TextModules.items():
 	if not Settings.assist and len(TextModules) > 0:
-		dzen.stdin.write(bytes((Settings.format.substitute(dict([(name, mod.output) for name, mod in TextModules.items()]))) + "\n","UTF-8"))
+		print([(name, x.output) for name, x in TextModules.items()])
+		t=(Settings.preface+Settings.format.substitute(
+			dict([(name, mod.output) for name, mod in TextModules.items()]))
+		)
+		#print(t)
+		for bar in bars:
+			bar.stdin.write(
+				bytes(
+					t + "\n",
+					"UTF-8"
+				)
+			)
 
 TextModules={
-	mtime.name:mtime.display(go),
-	FancyTime.name:FancyTime.display(go, "right"),
-	Calendar.name:Calendar.display(go)
+	Calendar.name:Calendar.display(go),
+	i3.name:i3.display(go),
+	FancyTime.name:FancyTime.display(go)
 	}
 
 if Settings.assist:

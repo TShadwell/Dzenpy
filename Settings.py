@@ -1,9 +1,10 @@
 from string import Template
+import colours
 class Compile:
-	def __init__(Self):
+	def __init__(Self,x=0, width=0):
 		dzen2={
 			#X position of the bar
-			"x":0,
+			"x":x,
 			#Y
 			"y":0,
 			#If it is placed in the WM's dock
@@ -13,20 +14,21 @@ class Compile:
 			#Height
 			"h":10,
 			#Width
-			"w":2880,
+			"w":0,
 			#Font
-			"fn":"drift.se",
+			"fn":"glisp",
 			#Text Colour
-			"fg":"#575757",
+			"fg":colours.primary.fg,
 			#Background colour
-			"bg":"#282828",
+			"bg":colours.primary.bg,
 			#Align
 			"ta":"l"
 		}
-		format = "$calendar"
+		format = "$fancytime"
 		Self.format = Template(format)
 		Self.options=''.join(["-%s%s " %(prop,(" " + str(val) if not str(val) == "" else "")) for prop, val in dzen2.items()]).strip(" ")
 		del dzen2
+	preface=""
 	debug = False
 	assist = False
 	
